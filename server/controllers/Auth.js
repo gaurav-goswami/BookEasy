@@ -4,6 +4,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const otpGenerator = require("otp-generator");
+const Profile = require("../models/ProfileDetails");
 
 class AuthController {
 
@@ -88,7 +89,34 @@ class AuthController {
                 return next(new ErrorHandler("Something went wrong. Please try again later"))
             }
 
-            user = await User.create({ username, email, password: hashedPassword, role ,avatar: `https://api.dicebear.com/5.x/initials/svg?seed=${username}`})
+            let profileDetails;
+
+            if(role === "User"){
+                profileDetails = await Profile.create({
+                    bio : null,
+                    contactInfo : {
+                        email,
+                        phoneNumber : null,
+                        address : null
+                    }
+                })
+            }else if(role === "Expert"){
+                profileDetails = await Profile.create({
+                    bio : null,
+                    serviceProvides : null,
+                    contactInfo : {
+                        email,
+                        phoneNumber : null,
+                        address : null
+                    },
+                    experience : null,
+                    education : null,
+                    available : null,
+                    experties : null
+                })
+            }
+
+            user = await User.create({ username, email, password: hashedPassword, role, profile : profileDetails  , avatar: `https://api.dicebear.com/5.x/initials/svg?seed=${username}`})
 
             return res.status(201).json({
                 success: true,

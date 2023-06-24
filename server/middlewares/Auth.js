@@ -10,8 +10,7 @@ exports.isAuthenticated = (req, res, next) => {
 
         const decoded_payload = jwt.verify(token, process.env.JWT_SECRET);
 
-        console.log("decoded_payload" , decoded_payload);
-
+        // console.log("decoded_payload" , decoded_payload);
         req.user = decoded_payload;
 
         next();
@@ -46,7 +45,7 @@ exports.isExpert = (req , res, next) => {
         next();
 
     } catch (error) {
-        console.log("error in admin middleware" , error.message);
+        console.log("error in expert middleware" , error.message);
         return next(new ErrorHandler("Something went wrong" , 401));
     }
 }

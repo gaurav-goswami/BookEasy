@@ -1,25 +1,37 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const cookieParse = require("cookie-parser");
+const cookieParser = require("cookie-parser");
+const fileUpload = require('express-fileupload');
+const cloudinaryConnect = require("./config/cloudinary");
 
 // importing routes
 
 const authRoutes = require("./routes/Auth");
+const profileRoutes = require("./routes/Profile");
+const serviceRouter = require("./routes/Services");
 
 
 dotenv.config({
-    path : "./.env"
+    path: "./.env"
 })
 
 const app = express();
 
 app.use(express.json());
-app.use(cookieParse());
+app.use(cookieParser());
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp"
+}))
+
+cloudinaryConnect();
 
 
 // using routes
 
-app.use("/api/v1/auth" , authRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1/services" , serviceRouter)
 
 
 module.exports = app;

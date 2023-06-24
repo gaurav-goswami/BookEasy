@@ -39,6 +39,18 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true,
         enum : ["User" , "Expert" , "Admin"]
+    },
+
+    services : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "Service"
+        }
+    ],
+
+    profile : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "ProfileDetail"
     }
 
 })
