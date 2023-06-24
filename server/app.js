@@ -9,6 +9,8 @@ const cloudinaryConnect = require("./config/cloudinary");
 const authRoutes = require("./routes/Auth");
 const profileRoutes = require("./routes/Profile");
 const serviceRouter = require("./routes/Services");
+const feedbackRouter = require("./routes/FeedbackAndRatings");
+const bookingRouter = require("./routes/Booking");
 
 
 dotenv.config({
@@ -31,7 +33,8 @@ cloudinaryConnect();
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/profile", profileRoutes);
-app.use("/api/v1/services" , serviceRouter)
-
+app.use("/api/v1/services" , serviceRouter);
+app.use("/api/v1/feedback" , feedbackRouter);
+app.use("/api/v1/booking" , bookingRouter)
 
 module.exports = app;

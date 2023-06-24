@@ -28,7 +28,8 @@ const userSchema = new mongoose.Schema({
     password : {
         type: String,
         required : true,
-        minLength : 8
+        minLength : 8,
+        select : false
     },
 
     avatar : {
@@ -51,7 +52,14 @@ const userSchema = new mongoose.Schema({
     profile : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "ProfileDetail"
-    }
+    },
+
+    bookings : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "Booking"
+        }
+    ]
 
 })
 

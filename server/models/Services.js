@@ -21,6 +21,11 @@ const serviceSchema = new mongoose.Schema({
     serviceDescription: {
         type : String,
         required : true
+    },
+
+    feedbacksAndRatings : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "FeedbackAndRating"
     }
 
 })

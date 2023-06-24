@@ -143,7 +143,7 @@ class AuthController {
 
             // check if the user exists or not
 
-            let user = await User.findOne({ email });
+            let user = await User.findOne({ email }).select("+password");
 
             if (!user) return next(new ErrorHandler("User doesn't exists. Please signup", 401));
 
